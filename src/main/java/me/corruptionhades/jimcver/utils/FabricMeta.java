@@ -64,7 +64,10 @@ public class FabricMeta {
 
         // https://maven.fabricmc.net/net/fabricmc/yarn/1.21.3+build.2/yarn-1.21.3%2Bbuild.2.jar
 
-        return "https://maven.fabricmc.net/net/fabricmc/yarn/" + first.get("version").getAsString() + "/yarn-" + first.get("version").getAsString() + ".jar";
+        // https://maven.fabricmc.net/net/fabricmc/yarn/1.21.1+build.3/yarn-1.21.1%2Bbuild.3-mergedv2.jar
+        // https://maven.fabricmc.net/net/fabricmc/yarn/1.21.1+build.3/yarn-<ver>-mergedv2.jar
+
+        return "https://maven.fabricmc.net/net/fabricmc/yarn/" + first.get("version").getAsString() + "/yarn-" + first.get("version").getAsString() + "-mergedv2.jar";
 
     }
 
