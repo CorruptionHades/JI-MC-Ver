@@ -5,6 +5,7 @@ import me.corruptionhades.jimcver.utils.ZipUtil;
 import org.gradle.api.DefaultTask;
 import org.gradle.api.artifacts.Configuration;
 import org.gradle.api.tasks.TaskAction;
+import org.gradle.api.tasks.bundling.Jar;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -37,7 +38,7 @@ public class DeployTask extends DefaultTask {
             return;
         }
 
-        File deployDir = getBuildDir();
+        File deployDir = build.getParentFile();
 
         File deployFileOfficial = new File(deployDir, build.getName().replace(".jar", "") + "-official.jar");
         File deployFileFabric = new File(deployDir, build.getName().replace(".jar", "") + "-fabric.jar");
@@ -118,18 +119,9 @@ public class DeployTask extends DefaultTask {
     }
 
     private File getBuild() {
-        File dir = getBuildDir();
-        if(!dir.exists()) {
-            dir.mkdirs();
-        }
-        for (String s : dir.list()) {
-            if(s.contains("-fabric") || s.contains("-official")) {
-                continue;
-            }
-            return new File(dir, s);
-        }
+        Jar jarTask = (Jar) getProject().getTasks().getByName("jar");
 
-        return null;
+        return jarTask.getArchiveFile().get().getAsFile();
        // return new File("H:/IntelijProjects/Ji-Template-Test/build/libs/Ji-Template-Test-1.0-SNAPSHOT.jar");
     }
 
@@ -179,9 +171,5 @@ public class DeployTask extends DefaultTask {
             return null;
         }
         return new File(getProject().getRootDir(),JiTemplater.DOWNLOAD_DIR + version);
-    }
-
-    private File getBuildDir() {
-        return new File(getProject().getRootDir(), "build/libs");
     }
 }

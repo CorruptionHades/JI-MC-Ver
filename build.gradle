@@ -1,7 +1,6 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
-    id 'java'
     id 'java-gradle-plugin'
     id 'maven-publish'
     id 'com.github.johnrengelman.shadow' version '8.1.1'
@@ -17,18 +16,6 @@ repositories {
     mavenLocal()
 }
 
-dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-
-    testImplementation gradleTestKit()
-
-    implementation gradleApi()
-    implementation localGroovy()
-
-    implementation 'com.google.code.gson:gson:2.11.0'
-}
-
 gradlePlugin {
     plugins {
         create("JI-MC-Ver") {
@@ -37,6 +24,11 @@ gradlePlugin {
         }
     }
 }
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.11.0'
+}
+
 
 publishing {
     publications {
@@ -47,11 +39,6 @@ publishing {
     repositories {
         mavenLocal()
     }
-}
-
-
-test {
-    useJUnitPlatform()
 }
 
 shadowJar {
